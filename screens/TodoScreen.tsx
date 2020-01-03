@@ -15,13 +15,11 @@ const TodoScreen = props => {
     state.todoLists.find(todoList => todoList.id === todoListId)
   );
 
-  console.log("Flatlist rendering list with id", todoListId);
   return (
     <FlatList
       keyExtractor={(todoId: string) => todoId}
       data={todoList.todosIds}
       renderItem={(item: ListRenderItemInfo<string>) => {
-        console.log("Item rendering", item.item);
         return <TodoItem id={item.item} />;
       }}
       ItemSeparatorComponent={() => <View style={SeparatorStyle} />}
@@ -37,7 +35,7 @@ TodoScreen.navigationOptions = ({ navigation }) => ({
         title="Add"
         iconName="md-create"
         onPress={() => {
-          navigation.navigate("NewTodoScreen", {
+          navigation.navigate("EditTodoScreen", {
             todoListId: navigation.getParam("todoListId"),
             title: navigation.getParam("title")
           });

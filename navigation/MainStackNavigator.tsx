@@ -2,7 +2,8 @@ import { createStackNavigator } from "react-navigation-stack";
 import TabsNavigator from "./TabsNavigator";
 import TodoScreen from "../screens/TodoScreen";
 import { createAppContainer } from "react-navigation";
-import NewTodoScreen from "../screens/EditTodoScreen";
+import EditTodoScreen from "../screens/EditTodoScreen";
+import NewTodoListScreen from "../screens/NewTodoListScreen";
 
 const MainStackNavigator = createStackNavigator({
   TabsStack: {
@@ -10,7 +11,8 @@ const MainStackNavigator = createStackNavigator({
     navigationOptions: { headerShown: false }
   },
   TodoScreen: TodoScreen,
-  NewTodoScreen: NewTodoScreen
+  EditTodoScreen: EditTodoScreen,
+  NewTodoListScreen: NewTodoListScreen
 });
 
 export default createAppContainer(MainStackNavigator);

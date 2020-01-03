@@ -10,7 +10,6 @@ import HeaderButton from "../components/Buttons/HeaderButton";
 const TodoListScreen = props => {
   const todoLists = useSelector(state => state.todoLists);
   const todos = useSelector(state => state.todos);
-  console.log(todoLists[0].todosIds.map(todoId => todos[todoId]));
   return (
     <FlatList
       keyExtractor={(item: TodoList) => item.id}
@@ -35,11 +34,17 @@ const TodoListScreen = props => {
   );
 };
 
-TodoListScreen.navigationOptions = () => ({
+TodoListScreen.navigationOptions = ({ navigation }) => ({
   headerTitle: "Todo Lists",
   headerRight: () => (
     <HeaderButtons HeaderButtonComponent={HeaderButton}>
-      <Item title="Add" iconName="md-add" onPress={() => {}} />
+      <Item
+        title="Add"
+        iconName="md-add"
+        onPress={() => {
+          navigation.navigate("NewTodoListScreen");
+        }}
+      />
     </HeaderButtons>
   )
 });

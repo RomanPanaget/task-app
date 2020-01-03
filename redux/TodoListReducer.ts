@@ -50,25 +50,32 @@ const todoReducer = (state = INITIAL_STATE, action) => {
   let todoList;
   switch (action.type) {
     case ADD_TODO_LIST:
+      console.log({
+        ...state,
+        todos: {
+          ...state.todos,
+          ...action.todos.reduce(
+            (obj, next) => ({ ...obj, [next.id]: next }),
+            {}
+          )
+        },
+        todoLists: [action.todoList, ...state.todoLists]
+      });
       return {
         ...state,
-        todos: { ...state.todos, ...action.todos },
+        todos: {
+          ...state.todos,
+          ...action.todos.reduce(
+            (obj, next) => ({ ...obj, [next.id]: next }),
+            {}
+          )
+        },
         todoLists: [action.todoList, ...state.todoLists]
       };
     case ADD_TODO:
       todoList = state.todoLists.find(
         todoList => todoList.id === action.todoListId
       );
-      console.log({
-        ...state,
-        todoLists: [
-          { ...todoList, todosIds: [action.todo.id, ...todoList.todosIds] },
-          ...state.todoLists.filter(
-            todoList => todoList.id !== action.todoListId
-          )
-        ],
-        todos: { ...state.todos, [action.todo.id]: action.todo }
-      });
       return {
         ...state,
         todoLists: [

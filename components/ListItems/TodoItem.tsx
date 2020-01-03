@@ -5,11 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTodoAction } from "../../redux/TodoActions";
 
 const TodoItem = props => {
-  console.log("TodoItem", props.id);
   const todo = useSelector(state => state.todos[props.id]);
   const dispatch = useDispatch();
   const toggleTodo = useCallback(() => {
-    console.log("TodoItem", props.id, "clicked");
     dispatch(toggleTodoAction({ ...todo, done: !todo.done }));
   }, [dispatch, todo]);
   return (

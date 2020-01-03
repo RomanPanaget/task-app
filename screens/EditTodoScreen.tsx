@@ -11,7 +11,7 @@ import {
   removeTodoFromTodoList
 } from "../redux/TodoActions";
 
-const NewTodoScreen = props => {
+const EditTodoScreen = props => {
   const todoListId = props.navigation.getParam("todoListId");
   const todoList = useSelector(state =>
     state.todoLists.find(todoList => todoList.id === todoListId)
@@ -63,8 +63,8 @@ const NewTodoScreen = props => {
   );
 };
 
-NewTodoScreen.navigationOptions = ({ navigation }) => ({
+EditTodoScreen.navigationOptions = ({ navigation }) => ({
   headerTitle: `Edit - ${navigation.getParam("title", "Unnamed")}`
 });
 
-export default NewTodoScreen;
+export default EditTodoScreen;
