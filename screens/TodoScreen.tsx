@@ -1,44 +1,50 @@
 import React from "react";
-import { StyleSheet, View, Text, ListRenderItemInfo } from "react-native";
+
+import { ListRenderItemInfo, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { Todo } from "../models/Todo";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from "react-redux";
+
+import HeaderButton from "../components/Buttons/HeaderButton";
+import TodoItem from "../components/ListItems/TodoItem";
 import { SeparatorStyle } from "../shared/Styles";
-import TodoItem from "../components/TodoItem";
 
 const TodoScreen = props => {
-  const initList: Todo[] = [
-    {
-      id: "2",
-      title: "Hello todo",
-      done: false
-    }
-  ];
+  const todoListId = props.navigation.getParam("todoListId");
+  const todoList = useSelector(state =>
+    state.todoLists.find(todoList => todoList.id === todoListId)
+  );
+
+  console.log("Flatlist rendering list with id", todoListId);
   return (
     <FlatList
-      keyExtractor={(item: Todo) => item.id}
-      data={initList}
-      renderItem={(item: ListRenderItemInfo<Todo>) => (
-        <TodoItem
-          id={item.item.id}
-          title={item.item.title}
-          checked={item.item.done}
-        />
-      )}
+      keyExtractor={(todoId: string) => todoId}
+      data={todoList.todosIds}
+      renderItem={(item: ListRenderItemInfo<string>) => {
+        console.log("Item rendering", item.item);
+        return <TodoItem id={item.item} />;
+      }}
       ItemSeparatorComponent={() => <View style={SeparatorStyle} />}
     />
   );
 };
 
 TodoScreen.navigationOptions = ({ navigation }) => ({
-  headerTitle: `${navigation.getParam("title", "Peter")}`
-});
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
+  headerTitle: `${navigation.getParam("title", "Unnamed")}`,
+  headerRight: () => (
+    <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <Item
+        title="Add"
+        iconName="md-create"
+        onPress={() => {
+          navigation.navigate("NewTodoScreen", {
+            todoListId: navigation.getParam("todoListId"),
+            title: navigation.getParam("title")
+          });
+        }}
+      />
+    </HeaderButtons>
+  )
 });
 
 export default TodoScreen;

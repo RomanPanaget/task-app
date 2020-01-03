@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableNativeFeedback } from "react-native";
-import Colors from "../shared/Colors";
+import Colors from "../../shared/Colors";
 import moment from "moment";
 
 const TodoListItem = props => {

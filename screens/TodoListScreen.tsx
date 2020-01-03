@@ -1,61 +1,30 @@
-import React, { useState } from "react";
-
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ListRenderItemInfo,
-  Text
-} from "react-native";
+import React from "react";
+import { View, StyleSheet, FlatList, ListRenderItemInfo } from "react-native";
+import { useSelector } from "react-redux";
 import { TodoList } from "../models/TodoList";
-import Colors from "../shared/Colors";
-import TodoListItem from "../components/TodoListItem";
+import TodoListItem from "../components/ListItems/TodoListItem";
 import { SeparatorStyle } from "../shared/Styles";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import HeaderButton from "../components/Buttons/HeaderButton";
 
 const TodoListScreen = props => {
-  const initList: TodoList[] = [
-    {
-      id: "1",
-      title:
-        "A simple todo list A simple todo list A simple todo list A simple todo list A simple todo list A simple todo list",
-      description:
-        "Hello this is a dummy todo list I use for mocking because I need to test the component",
-      creationDate: new Date(),
-      todos: [
-        {
-          id: "2",
-          title: "Hello todo",
-          done: false
-        }
-      ]
-    },
-    {
-      id: "2",
-      title: "Another todo list !",
-      description: "Hello this is a dummy todo list I use for mocking",
-      creationDate: new Date(),
-      todos: [
-        {
-          id: "2",
-          title: "Hello todo",
-          done: false
-        }
-      ]
-    }
-  ];
-  // const [todosList, setTodosList] = useState(initList);
+  const todoLists = useSelector(state => state.todoLists);
+  const todos = useSelector(state => state.todos);
+  console.log(todoLists[0].todosIds.map(todoId => todos[todoId]));
   return (
     <FlatList
       keyExtractor={(item: TodoList) => item.id}
-      data={initList}
+      data={todoLists}
+      extraData={todos}
       renderItem={(item: ListRenderItemInfo<TodoList>) => (
         <TodoListItem
           title={item.item.title}
           description={item.item.description}
           creationDate={item.item.creationDate}
-          todos={item.item.todos}
+          todos={item.item.todosIds.map(todoId => todos[todoId])}
           onPress={() => {
             props.navigation.navigate("TodoScreen", {
+              todoListId: item.item.id,
               title: item.item.title
             });
           }}
@@ -65,6 +34,15 @@ const TodoListScreen = props => {
     />
   );
 };
+
+TodoListScreen.navigationOptions = () => ({
+  headerTitle: "Todo Lists",
+  headerRight: () => (
+    <HeaderButtons HeaderButtonComponent={HeaderButton}>
+      <Item title="Add" iconName="md-add" onPress={() => {}} />
+    </HeaderButtons>
+  )
+});
 
 export default TodoListScreen;
 

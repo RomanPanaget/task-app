@@ -1,14 +1,12 @@
 import React from "react";
 
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { ScreenStyle } from "../shared/Styles";
+import { StyleSheet, ScrollView } from "react-native";
+import Checkbox from "../components/Checkbox";
 
 const DoneScreen = () => {
   return (
-    <ScrollView style={ScreenStyle}>
-      <View>
-        <Text>This is the title</Text>
-      </View>
+    <ScrollView>
+      <Checkbox checked={false} />
     </ScrollView>
   );
 };

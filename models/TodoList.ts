@@ -1,10 +1,8 @@
-import { Todo } from "./Todo";
-
 export interface TodoList {
   id: string;
   title: string;
   description?: string;
-  todos: Todo[];
+  todosIds: string[];
   creationDate: Date;
   finishedDate?: Date;
 }

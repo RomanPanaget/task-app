@@ -7,13 +7,13 @@ import TodoListScreen from "../screens/TodoListScreen";
 import DoneScreen from "../screens/DoneScreen";
 
 const DoneStackNavigator = createStackNavigator({
-  DoneScreen: DoneScreen
+  DoneScreen: { screen: DoneScreen, navigationOptions: { title: "Done Lists" } }
 });
 
 const TodoStackNavigator = createStackNavigator({
   TodoListScreen: {
     screen: TodoListScreen,
-    navigationOptions: { title: "Todo List" }
+    navigationOptions: { title: "Todo Lists" }
   }
 });
 
