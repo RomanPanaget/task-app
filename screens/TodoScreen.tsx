@@ -10,10 +10,11 @@ import TodoItem from "../components/ListItems/TodoItem";
 import { SeparatorStyle } from "../shared/Styles";
 
 const TodoScreen = props => {
-  const todoListId = props.navigation.getParam("todoListId");
-  const todoList = useSelector(state =>
-    state.todoLists.find(todoList => todoList.id === todoListId)
-  );
+  const todoListId = props.navigation.getParam("todoListId") || -1;
+  const todoList =
+    useSelector(state =>
+      state.todoLists.find(todoList => todoList.id === todoListId)
+    ) || {};
 
   return (
     <FlatList

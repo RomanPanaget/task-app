@@ -16,6 +16,7 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/Buttons/HeaderButton";
 import { useDispatch } from "react-redux";
 import { addTodoList } from "../redux/TodoActions";
+import Colors from "../shared/Colors";
 
 const NewTodoListScreen = props => {
   const dispatch = useDispatch();
@@ -69,26 +70,44 @@ const NewTodoListScreen = props => {
 
   return (
     <View>
-      <Text>Title:</Text>
-      <TextInput value={title} onChangeText={setTitle} />
-      <Text>Description:</Text>
-      <TextInput value={description} onChangeText={setDescription} />
-      <Text>Tasks:</Text>
-      <FlatList
-        keyExtractor={(todo: Todo) => todo.id}
-        data={todos}
-        keyboardShouldPersistTaps="handled"
-        renderItem={(item: ListRenderItemInfo<Todo>) => (
-          <EditTodoItem
-            id={item.item}
-            title={item.item.title}
-            onRemovePress={() => removeTodo(item.item.id)}
+      <View style={styles.formContainer}>
+        <View style={styles.formRow}>
+          <Text style={styles.formTitle}>Title:</Text>
+          <TextInput
+            style={styles.formRowInput}
+            value={title}
+            onChangeText={setTitle}
+            placeholder="Add a title"
+            placeholderTextColor={Colors.lightGrey}
           />
-        )}
-        ItemSeparatorComponent={() => <View style={SeparatorStyle} />}
-        ListHeaderComponent={<NewTodoItem onAddPress={addTodo} />}
-        ListHeaderComponentStyle={SeparatorShadowStyle}
-      />
+        </View>
+        <Text style={styles.formTitle}>Description:</Text>
+        <TextInput
+          style={styles.formInput}
+          value={description}
+          onChangeText={setDescription}
+          placeholder="Add a description (optional)"
+          placeholderTextColor={Colors.lightGrey}
+        />
+        <Text style={styles.formTitle}>Tasks:</Text>
+      </View>
+      <View>
+        <FlatList
+          keyExtractor={(todo: Todo) => todo.id}
+          data={todos}
+          keyboardShouldPersistTaps="handled"
+          renderItem={(item: ListRenderItemInfo<Todo>) => (
+            <EditTodoItem
+              id={item.item}
+              title={item.item.title}
+              onRemovePress={() => removeTodo(item.item.id)}
+            />
+          )}
+          ItemSeparatorComponent={() => <View style={SeparatorStyle} />}
+          ListHeaderComponent={<NewTodoItem onAddPress={addTodo} />}
+          ListHeaderComponentStyle={SeparatorShadowStyle}
+        />
+      </View>
     </View>
   );
 };
@@ -114,4 +133,24 @@ NewTodoListScreen.navigationOptions = ({ navigation }) => ({
 
 export default NewTodoListScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  formContainer: {
+    padding: 12
+  },
+  formRow: {
+    flexDirection: "row"
+  },
+  formTitle: {
+    fontSize: 16,
+    letterSpacing: 1.5,
+    textTransform: "uppercase"
+  },
+  formInput: {
+    marginVertical: 14
+  },
+  formRowInput: {
+    flex: 1,
+    marginHorizontal: 14,
+    alignItems: "center"
+  }
+});

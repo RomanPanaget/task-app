@@ -3,10 +3,10 @@ import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import Colors from "../shared/Colors";
 
 const SIZE = 24;
-const GAP = 2;
-const OUTER_BORDER_RADIUS = 6;
-const INNER_BORDER_RADIUS = 3;
+const GAP = 4;
 const BORDER_WIDTH = 2;
+const OUTER_BORDER_RADIUS = 12;
+const INNER_BORDER_RADIUS = OUTER_BORDER_RADIUS - GAP - BORDER_WIDTH;
 
 const Checkbox = props => {
   return (

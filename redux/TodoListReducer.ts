@@ -2,7 +2,8 @@ import {
   ADD_TODO_LIST,
   ADD_TODO,
   UPDATE_TODO,
-  REMOVE_TODO
+  REMOVE_TODO,
+  REMOVE_TODO_LIST
 } from "./TodoActions";
 
 const INITIAL_STATE = {
@@ -50,17 +51,6 @@ const todoReducer = (state = INITIAL_STATE, action) => {
   let todoList;
   switch (action.type) {
     case ADD_TODO_LIST:
-      console.log({
-        ...state,
-        todos: {
-          ...state.todos,
-          ...action.todos.reduce(
-            (obj, next) => ({ ...obj, [next.id]: next }),
-            {}
-          )
-        },
-        todoLists: [action.todoList, ...state.todoLists]
-      });
       return {
         ...state,
         todos: {
@@ -71,6 +61,28 @@ const todoReducer = (state = INITIAL_STATE, action) => {
           )
         },
         todoLists: [action.todoList, ...state.todoLists]
+      };
+    case REMOVE_TODO_LIST:
+      todoList = state.todoLists.find(
+        todoList => todoList.id === action.todoListId
+      );
+      console.log({
+        ...state,
+        todos: Object.keys(state.todos)
+          .filter(id => !todoList.todosIds.includes(id))
+          .map(id => state.todos[id]),
+        todoLists: state.todoLists.filter(
+          todoList => todoList.id !== action.todoListId
+        )
+      });
+      return {
+        ...state,
+        todos: Object.keys(state.todos)
+          .filter(id => !todoList.todosIds.includes(id))
+          .map(id => state.todos[id]),
+        todoLists: state.todoLists.filter(
+          todoList => todoList.id !== action.todoListId
+        )
       };
     case ADD_TODO:
       todoList = state.todoLists.find(
