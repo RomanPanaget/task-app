@@ -6,6 +6,7 @@ import TodoListItem from "../components/ListItems/TodoListItem";
 import { SeparatorStyle } from "../shared/Styles";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../components/Buttons/HeaderButton";
+import EmptyState from "../components/EmptyList";
 
 const TodoListScreen = props => {
   const todoLists = useSelector(state => state.todoLists);
@@ -30,6 +31,9 @@ const TodoListScreen = props => {
         />
       )}
       ItemSeparatorComponent={() => <View style={SeparatorStyle} />}
+      ListEmptyComponent={
+        <EmptyState message={"This list is empty, try adding a task list."} />
+      }
     />
   );
 };

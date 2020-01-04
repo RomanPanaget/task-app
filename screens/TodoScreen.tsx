@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import HeaderButton from "../components/Buttons/HeaderButton";
 import TodoItem from "../components/ListItems/TodoItem";
 import { SeparatorStyle } from "../shared/Styles";
+import EmptyState from "../components/EmptyList";
 
 const TodoScreen = props => {
   const todoListId = props.navigation.getParam("todoListId") || -1;
@@ -24,6 +25,9 @@ const TodoScreen = props => {
         return <TodoItem id={item.item} />;
       }}
       ItemSeparatorComponent={() => <View style={SeparatorStyle} />}
+      ListEmptyComponent={
+        <EmptyState message={"This list is empty, try adding a task."} />
+      }
     />
   );
 };
