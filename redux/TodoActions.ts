@@ -7,6 +7,7 @@ export const ADD_TODO = "ADD_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
 export const REMOVE_TODO = "REMOVE_TODO";
 export const REMOVE_TODO_LIST = "REMOVE_TODO_LIST";
+export const RESET_ALL = "RESET_ALL";
 
 export const addTodoList = (todoList: TodoList, todos: Todo[]) => {
   return {
@@ -40,5 +41,11 @@ export const removeTodoFromTodoList = (todoListId: string, todoId: string) => {
     type: REMOVE_TODO,
     todoListId,
     todoId
+  };
+};
+
+export const resetState = () => {
+  return {
+    type: RESET_ALL
   };
 };

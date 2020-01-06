@@ -3,7 +3,8 @@ import {
   ADD_TODO,
   UPDATE_TODO,
   REMOVE_TODO,
-  REMOVE_TODO_LIST
+  REMOVE_TODO_LIST,
+  RESET_ALL
 } from "./TodoActions";
 import { Todo } from "../models/Todo";
 
