@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import Colors from "../shared/Colors";
 
 const EmptyState = props => {
   return (
@@ -11,7 +13,14 @@ const EmptyState = props => {
         margin: 12
       }}
     >
-      <Text>{props.message || "This screen is empty"}</Text>
+      <Ionicons
+        name={"md-checkbox-outline"}
+        size={100}
+        color={Colors.veryLightGrey}
+      />
+      <Text style={{ marginVertical: 12, color: Colors.lightGrey }}>
+        {props.message || "This screen is empty"}
+      </Text>
     </View>
   );
 };
