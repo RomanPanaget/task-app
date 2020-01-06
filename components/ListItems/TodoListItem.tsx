@@ -22,7 +22,7 @@ const TodoListItem = props => {
           <Text numberOfLines={1} style={styles.progress}>
             Progress:{" "}
             <Text style={styles.progressRatio}>
-              {props.todos.filter(todo => todo.done).length}/
+              {props.todos.filter(todo => todo?.done).length}/
               {props.todos.length}
             </Text>
           </Text>

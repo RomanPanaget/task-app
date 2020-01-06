@@ -9,13 +9,17 @@ import HeaderButton from "../components/Buttons/HeaderButton";
 import EmptyState from "../components/EmptyList";
 
 const TodoListScreen = props => {
-  const todoLists = useSelector(state => state.todoLists);
+  const todoLists = useSelector(state => {
+    console.log(state);
+    return state.todoLists;
+  });
   const todos = useSelector(state => state.todos);
   return (
     <FlatList
       keyExtractor={(item: TodoList) => item.id}
       data={todoLists}
       extraData={todos}
+      contentContainerStyle={{ flex: 1 }}
       renderItem={(item: ListRenderItemInfo<TodoList>) => (
         <TodoListItem
           title={item.item.title}

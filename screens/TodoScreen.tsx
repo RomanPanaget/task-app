@@ -16,11 +16,12 @@ const TodoScreen = props => {
     useSelector(state =>
       state.todoLists.find(todoList => todoList.id === todoListId)
     ) || {};
-
+  console.log(todoList);
   return (
     <FlatList
       keyExtractor={(todoId: string) => todoId}
       data={todoList.todosIds}
+      contentContainerStyle={{ flex: 1 }}
       renderItem={(item: ListRenderItemInfo<string>) => {
         return <TodoItem id={item.item} />;
       }}
