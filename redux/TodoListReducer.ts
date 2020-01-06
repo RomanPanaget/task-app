@@ -5,6 +5,7 @@ import {
   REMOVE_TODO,
   REMOVE_TODO_LIST
 } from "./TodoActions";
+import { Todo } from "../models/Todo";
 
 const INITIAL_STATE = {
   todoLists: [
@@ -49,6 +50,7 @@ const INITIAL_STATE = {
 
 const todoReducer = (state = INITIAL_STATE, action) => {
   let todoList;
+  console.log(state);
   switch (action.type) {
     case ADD_TODO_LIST:
       return {
@@ -66,20 +68,17 @@ const todoReducer = (state = INITIAL_STATE, action) => {
       todoList = state.todoLists.find(
         todoList => todoList.id === action.todoListId
       );
-      console.log({
-        ...state,
-        todos: Object.keys(state.todos)
-          .filter(id => !todoList.todosIds.includes(id))
-          .map(id => state.todos[id]),
-        todoLists: state.todoLists.filter(
-          todoList => todoList.id !== action.todoListId
-        )
-      });
       return {
         ...state,
         todos: Object.keys(state.todos)
           .filter(id => !todoList.todosIds.includes(id))
-          .map(id => state.todos[id]),
+          .reduce(
+            (obj, nextId: string) => ({
+              ...obj,
+              [nextId]: state.todos[nextId]
+            }),
+            {}
+          ),
         todoLists: state.todoLists.filter(
           todoList => todoList.id !== action.todoListId
         )
@@ -125,8 +124,17 @@ const todoReducer = (state = INITIAL_STATE, action) => {
         ],
         todos: Object.keys(state.todos)
           .filter(id => id !== action.todoId)
-          .map(id => state.todos[id])
+          .reduce(
+            (obj, nextId: string) => ({
+              ...obj,
+              [nextId]: state.todos[nextId]
+            }),
+            {}
+          )
       };
+    case RESET_ALL:
+      return {};
+
     default:
       return state;
   }
