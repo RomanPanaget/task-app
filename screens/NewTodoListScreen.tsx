@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
     padding: 12
   },
   formRow: {
-    flexDirection: "row"
+    flexDirection: "row",
+    marginBottom: 16
   },
   formTitle: {
     fontSize: 16,
