@@ -1,11 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableNativeFeedback } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Colors from "../../shared/Colors";
 import moment from "moment";
+import Touchable from "../Touchable";
 
 const TodoListItem = props => {
   return (
-    <TouchableNativeFeedback onPress={props.onPress}>
+    <Touchable onPress={props.onPress}>
       <View style={styles.row}>
         <View style={styles.titleRow}>
           <Text numberOfLines={1} style={styles.title}>
@@ -28,7 +29,7 @@ const TodoListItem = props => {
           </Text>
         </View>
       </View>
-    </TouchableNativeFeedback>
+    </Touchable>
   );
 };
 
